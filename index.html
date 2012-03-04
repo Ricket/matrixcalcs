@@ -1,0 +1,134 @@
+<html>
+<head>
+	<title>Matrix Calculator</title>
+	<style type="text/css">
+	table.matrix {
+		float:left;
+		border:1px solid #000;
+		margin-right:5px;
+	}
+	table.equals {
+		float:left;
+	}
+	input {
+		width:50px;
+	}
+	</style>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$('.result input').attr('readonly', true);
+		$('.matrix input').change(function () {
+			recalculate();
+		});
+		for(var i=0; i<4; i++) {
+			for(var j=0; j<4; j++) {
+				$('#m1_'+i+''+j).val( (i==j) ? "1" : "0" );
+			}
+		}
+	});
+	
+	function recalculate() {
+		$('.result input').val(function(idx) {
+			idx = idx % 4;
+			var sum = 0.0;
+			for(var i=0; i<4; i++) {
+				sum += parseFloat($('#m1_'+idx+''+i).val()) * parseFloat($('#m2_'+i+'0').val());
+			}
+			return "" + sum;
+		});
+		$('.normalized input').val(function(idx, value) {
+			return "" + (parseFloat(value) / parseFloat($('#m3_30').val()));
+		});
+	}
+	</script>
+</head>
+<body>
+	<div>
+		<table class="matrix">
+			<tr>
+				<td><input type="text" id="m1_00" /></td>
+				<td><input type="text" id="m1_01" /></td>
+				<td><input type="text" id="m1_02" /></td>
+				<td><input type="text" id="m1_03" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m1_10" /></td>
+				<td><input type="text" id="m1_11" /></td>
+				<td><input type="text" id="m1_12" /></td>
+				<td><input type="text" id="m1_13" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m1_20" /></td>
+				<td><input type="text" id="m1_21" /></td>
+				<td><input type="text" id="m1_22" /></td>
+				<td><input type="text" id="m1_23" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m1_30" /></td>
+				<td><input type="text" id="m1_31" /></td>
+				<td><input type="text" id="m1_32" /></td>
+				<td><input type="text" id="m1_33" /></td>
+			</tr>
+		</table>
+		<table class="matrix">
+			<tr>
+				<td><input type="text" id="m2_00" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m2_10" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m2_20" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m2_30" /></td>
+			</tr>
+		</table>
+		<table class="equals">
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>=</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+		<table class="matrix result">
+			<tr>
+				<td><input type="text" id="m3_00" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m3_10" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m3_20" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m3_30" /></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<table class="matrix result normalized">
+			<tr>
+				<td><input type="text" id="m4_00" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m4_10" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m4_20" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="m4_30" /></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
