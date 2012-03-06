@@ -10,8 +10,12 @@
 	table.equals {
 		float:left;
 	}
-	input {
+	input[type=text] {
 		width:50px;
+	}
+	div.row {
+		display:block;
+		clear:both;
 	}
 	</style>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -26,6 +30,25 @@
 				$('#m1_'+i+''+j).val( (i==j) ? "1" : "0" );
 			}
 		}
+		
+		$('#btnQuickinput').click(function () {
+			var jsarr = prompt("Paste JS array:");
+			var mat;
+			try {
+				mat = eval(jsarr);
+			} catch(e) {
+				mat = [];
+			}
+			if(mat instanceof Array && mat.length == 16) {
+				for(var i=0; i<4; i++) {
+					for(var j=0; j<4; j++) {
+						$('#m1_'+j+''+i).val(mat[i*4+j]);
+					}
+				}
+			} else if(mat != null) {
+				alert("Expecting array with 16 elements, example: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]");
+			}
+		});
 	});
 	
 	function recalculate() {
@@ -44,7 +67,10 @@
 	</script>
 </head>
 <body>
-	<div>
+	<div class="row">
+		<input type="button" id="btnQuickinput" value="Quickinput" />
+	</div>
+	<div class="row">
 		<table class="matrix">
 			<tr>
 				<td><input type="text" id="m1_00" /></td>
@@ -69,6 +95,20 @@
 				<td><input type="text" id="m1_31" /></td>
 				<td><input type="text" id="m1_32" /></td>
 				<td><input type="text" id="m1_33" /></td>
+			</tr>
+		</table>
+		<table class="equals">
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>*</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
 			</tr>
 		</table>
 		<table class="matrix">
@@ -113,8 +153,20 @@
 				<td><input type="text" id="m3_30" /></td>
 			</tr>
 		</table>
-	</div>
-	<div>
+		<table class="equals">
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>||=</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
 		<table class="matrix result normalized">
 			<tr>
 				<td><input type="text" id="m4_00" /></td>
